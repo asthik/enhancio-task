@@ -31,17 +31,17 @@ class Container extends React.Component {
     handleSubmit = async e => {
         e.preventDefault();
 
-        (async () => {
-            let resp = await fetch('http://54.193.89.54:8230/readFields');
-            console.log(resp);
-            if(resp.ok) {
-            console.log('success');
-            let jsonn = await resp.json();
-                console.log('data obtained: ' + JSON.stringify(jsonn[0]));
-            } else {
-            console.log('http error: ' + resp.status);
-            }
-        })();
+        // (async () => {
+        //     let resp = await fetch('http://54.193.89.54:8230/readFields');
+        //     console.log(resp);
+        //     if(resp.ok) {
+        //     console.log('success');
+        //     let jsonn = await resp.json();
+        //         console.log('data obtained: ' + JSON.stringify(jsonn[0]));
+        //     } else {
+        //     console.log('http error: ' + resp.status);
+        //     }
+        // })();
 
         // axios({
         //     url: 'http://54.193.89.54:8230/saveFields',
@@ -77,7 +77,40 @@ class Container extends React.Component {
         //     }else{
         //         this.setState({errorMsg: response.data.message});
         //     }
+        // }).catch(error => {
+        //     console.log('http error: ' + error);
         // });
+
+        axios.post('http://54.193.89.54:8230/saveFields', {
+            data :[
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.firstname,"fieldType":"TXT","mandatory":"Y","order":1,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.email,"fieldType":"TXT","mandatory":"Y","order":2,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.companyname,"fieldType":"TXT","mandatory":"Y","order":3,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.jobfunction,"fieldType":"TXT","mandatory":"Y","order":4,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.industry,"fieldType":"TXT","mandatory":"Y","order":5,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.streetAddress,"fieldType":"TXT","mandatory":"Y","order":6,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.state,"fieldType":"TXT","mandatory":"Y","order":7,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.zipcode,"fieldType":"TXT","mandatory":"Y","order":8,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.lastname,"fieldType":"TXT","mandatory":"Y","order":9,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.title,"fieldType":"TXT","mandatory":"Y","order":10,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.joblevel,"fieldType":"TXT","mandatory":"Y","order":11,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.companysize,"fieldType":"TXT","mandatory":"Y","order":12,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.resource,"fieldType":"TXT","mandatory":"Y","order":13,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.city,"fieldType":"TXT","mandatory":"Y","order":14,"expectedValues":[]},
+                {"id":null,"createdOn": new Date(), "fieldName":this.state.country,"fieldType":"TXT","mandatory":"Y","order":15,"expectedValues":[]}
+            ]
+            
+        }, {
+                headers: {
+                    //'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                }
+        })
+        .then(response => { 
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error.response);
+        });
     }
 
     handleChange = (e) => {
@@ -170,7 +203,7 @@ class Container extends React.Component {
                         handleChange={this.handleChange}/>
                     <FormInput 
                         type="text" 
-                        value={this.state.firstname} 
+                        value={this.state.joblevel} 
                         label="Job Level"
                         name="joblevel" 
                         required 
